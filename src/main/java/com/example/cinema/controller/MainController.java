@@ -1,5 +1,6 @@
 package com.example.cinema.controller;
 
+import com.example.cinema.domain.AllFilms;
 import com.example.cinema.domain.Item;
 import com.example.cinema.domain.Film;
 import com.example.cinema.domain.Message;
@@ -61,6 +62,12 @@ public class MainController {
 
         Gson g = new Gson();
         item = g.fromJson(response.toString(), Item.class);
+
+        AllFilms a = new AllFilms();
+        Film b = new Film();
+
+        a.rank = item.items.get(1).rank;
+
 
         model.put("films", item.items);
 

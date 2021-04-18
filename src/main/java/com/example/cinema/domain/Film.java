@@ -1,7 +1,7 @@
 package com.example.cinema.domain;
 
 public class Film {
-    public String id;
+    public Integer id;
     public String rank;
     public String title;
     public String fullTitle;
@@ -11,3 +11,5 @@ public class Film {
     public String imDbRating;
     public String imDbRatingCount;
 }
+
+
