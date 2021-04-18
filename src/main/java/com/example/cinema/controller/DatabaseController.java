@@ -4,7 +4,6 @@ import com.example.cinema.domain.AllFilms;
 import com.example.cinema.domain.Film;
 import com.example.cinema.domain.Item;
 import com.example.cinema.repos.FilmRepo;
-import com.example.cinema.repos.MessageRepo;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 
 
@@ -48,39 +48,28 @@ public class DatabaseController {
         Gson g = new Gson();
         item = g.fromJson(response.toString(), Item.class);
 
-        for (int i = 1; i<=250; i++) {
-            AllFilms aue = new AllFilms();
-            if (aue.getStringId() == null) {
-                aue.setStringId(item.items.get(i - 1).id);
-                aue.setRank(item.items.get(i - 1).rank);
-                aue.setTitle(item.items.get(i - 1).title);
-                aue.setFullTitle(item.items.get(i - 1).fullTitle);
-                aue.setYear(item.items.get(i - 1).year);
-                aue.setImage(item.items.get(i - 1).image);
-                aue.setCrew(item.items.get(i - 1).crew);
-                aue.setImDbRating(item.items.get(i - 1).imDbRating);
-                aue.setImDbRatingCount(item.items.get(i - 1).imDbRatingCount);
-                filmRepo.save(aue);
+        List<AllFilms> omae = filmRepo.findAll();
+
+        if (omae.isEmpty()){
+            for (Film film:item.items) {
+                AllFilms newFilm = new AllFilms();
+                newFilm.setStringId(film.id);
+                newFilm.setRank(film.rank);
+                newFilm.setTitle(film.title);
+                newFilm.setFullTitle(film.fullTitle);
+                newFilm.setYear(film.year);
+                newFilm.setImage(film.image);
+                newFilm.setCrew(film.crew);
+                newFilm.setImDbRating(film.imDbRating);
+                newFilm.setImDbRatingCount(film.imDbRatingCount);
+                filmRepo.save(newFilm);
+
             }
-            else break;
         }
 
-//        for (int i = 1; i<=250; i++) {
-//            AllFilms aue = new AllFilms();
-//
-//            aue.setStringId(item.items.get(i - 1).id);
-//            aue.setRank(item.items.get(i - 1).rank);
-//            aue.setTitle(item.items.get(i - 1).title);
-//            aue.setFullTitle(item.items.get(i - 1).fullTitle);
-//            aue.setYear(item.items.get(i - 1).year);
-//            aue.setImage(item.items.get(i - 1).image);
-//            aue.setCrew(item.items.get(i - 1).crew);
-//            aue.setImDbRating(item.items.get(i - 1).imDbRating);
-//            aue.setImDbRatingCount(item.items.get(i - 1).imDbRatingCount);
-//            filmRepo.save(aue);
-//        }
+        List<AllFilms> filmFromDb = filmRepo.findAll();
 
-        model.put("films", item.items);
+        model.put("films", filmFromDb);
 
         return "main";
     }

@@ -3,9 +3,7 @@ package com.example.cinema.controller;
 import com.example.cinema.domain.AllFilms;
 import com.example.cinema.domain.Item;
 import com.example.cinema.domain.Film;
-import com.example.cinema.domain.Message;
 import com.example.cinema.repos.FilmRepo;
-import com.example.cinema.repos.MessageRepo;
 import com.google.gson.Gson;
 import org.apache.juli.logging.Log;
 import org.glassfish.hk2.utilities.reflection.Logger;
@@ -37,10 +35,8 @@ public class MainController {
     public static Item item;
 
     @Autowired
-    private MessageRepo messageRepo;
-
-    @Autowired
     private FilmRepo filmRepo;
+
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
@@ -50,17 +46,18 @@ public class MainController {
     @PostMapping("filter")
     public String filter(@RequestParam String filter, Map<String, Object> model){
 
-        ArrayList<Film> f = new ArrayList<Film>();
+        List<AllFilms> filmsFromDb = filmRepo.findAll();
+        ArrayList<AllFilms> f = new ArrayList<AllFilms>();
 
         if (filter != null && !filter.isEmpty()){
             for (int i = 1; i<=250; i++) {
-                if (item.items.get(i - 1).title.contains(filter)){
-                    f.add(item.items.get(i - 1));
+                if (filmsFromDb.get(i - 1).title.contains(filter)){
+                    f.add(filmsFromDb.get(i - 1));
                 }
             }
             model.put("films", f);
         }else {
-            model.put("films", item.items);
+            model.put("films", filmsFromDb);
         }
 
         return "main";

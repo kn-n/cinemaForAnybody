@@ -24,7 +24,8 @@ public class AllFilms {
 
     }
 
-    public AllFilms(String stringId, String rank, String title, String fullTitle, String year, String image, String crew, String imDbRating, String imDbRatingCount) {
+    public AllFilms(Integer id, String stringId, String rank, String title, String fullTitle, String year, String image, String crew, String imDbRating, String imDbRatingCount) {
+        this.id = id;
         this.stringId = stringId;
         this.rank = rank;
         this.title = title;
