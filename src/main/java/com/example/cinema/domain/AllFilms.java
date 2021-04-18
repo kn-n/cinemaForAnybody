@@ -10,6 +10,7 @@ public class AllFilms {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     public Integer id;
+    public String stringId;
     public String rank;
     public String title;
     public String fullTitle;
@@ -23,8 +24,8 @@ public class AllFilms {
 
     }
 
-    public AllFilms(Integer id, String rank, String title, String fullTitle, String year, String image, String crew, String imDbRating, String imDbRatingCount) {
-        this.id = id;
+    public AllFilms(String stringId, String rank, String title, String fullTitle, String year, String image, String crew, String imDbRating, String imDbRatingCount) {
+        this.stringId = stringId;
         this.rank = rank;
         this.title = title;
         this.fullTitle = fullTitle;
@@ -41,6 +42,14 @@ public class AllFilms {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getStringId() {
+        return stringId;
+    }
+
+    public void setStringId(String stringId) {
+        this.stringId = stringId;
     }
 
     public String getRank() {

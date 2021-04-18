@@ -4,8 +4,11 @@ import com.example.cinema.domain.AllFilms;
 import com.example.cinema.domain.Item;
 import com.example.cinema.domain.Film;
 import com.example.cinema.domain.Message;
+import com.example.cinema.repos.FilmRepo;
 import com.example.cinema.repos.MessageRepo;
 import com.google.gson.Gson;
+import org.apache.juli.logging.Log;
+import org.glassfish.hk2.utilities.reflection.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -36,6 +39,9 @@ public class MainController {
     @Autowired
     private MessageRepo messageRepo;
 
+    @Autowired
+    private FilmRepo filmRepo;
+
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
         return "greeting";
@@ -63,11 +69,36 @@ public class MainController {
         Gson g = new Gson();
         item = g.fromJson(response.toString(), Item.class);
 
-        AllFilms a = new AllFilms();
-        Film b = new Film();
+        AllFilms aue = new AllFilms();
 
-        a.rank = item.items.get(1).rank;
+//        for (Film i:item.items)
+//        {
+//            aue.setStringId(i.id);
+//            aue.setRank(i.rank);
+//            aue.setTitle(i.title);
+//            aue.setFullTitle(i.fullTitle);
+//            aue.setYear(i.year);
+//            aue.setImage(i.image);
+//            aue.setCrew(i.crew);
+//            aue.setImDbRating(i.imDbRating);
+//            aue.setImDbRatingCount(i.imDbRatingCount);
+//            filmRepo.save(aue);
+//        }
 
+        for (int i = 1; i<=250; i++) {
+            aue.setStringId(item.items.get(i - 1).id);
+            aue.setRank(item.items.get(i - 1).rank);
+            aue.setTitle(item.items.get(i - 1).title);
+            aue.setFullTitle(item.items.get(i - 1).fullTitle);
+            aue.setYear(item.items.get(i - 1).year);
+            aue.setImage(item.items.get(i - 1).image);
+            aue.setCrew(item.items.get(i - 1).crew);
+            aue.setImDbRating(item.items.get(i - 1).imDbRating);
+            aue.setImDbRatingCount(item.items.get(i - 1).imDbRatingCount);
+            System.out.println("Jizn voram"+(i-1));
+            filmRepo.save(aue);
+            System.out.println("Smert voram"+(i-1));
+        }
 
         model.put("films", item.items);
 
