@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Main</title>
+    <style type="text/css">
+        .films{
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            height: 100%;
+        }
+        .film{
+            display: flex;
+            flex-direction: nowrap;
+            height: 100%;
+            width: 40%;
+            padding: 10px;
+            border: 2px solid black;
+        }
+        .numimg{
+            display: flex;
+            justify-content: space-between;
+            height: 100%;
+            margin-right: 10px;
+        }
+        .d{
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            width: 100%;
+        }
+
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<form action="/logout" method="post">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <input type="submit" value="Sign Out"/>
+</form>
+<br>
+<div>Найти фильм в топе 250</div>
+<br>
+<form method="post" action="filter">
+    <input type="text" name="filter">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <button type="submit">Найти</button>
+</form>
+<br>
+<div class="films">
+    {{#films}}
+        <div class="film">
+            <div class="numimg">
+                {{rank}}
+                <img src="{{image}}" width="100" height="150">
+            </div>
+            <div class="d">
+                <div>{{title}}</div>
+                <div>{{year}}</div>
+                <div>{{crew}}</div>
+                <div>{{imDbRating}}</div>
+            </div>
+        </div>
+    {{/films}}
+</div>
+</body>
+</html>
