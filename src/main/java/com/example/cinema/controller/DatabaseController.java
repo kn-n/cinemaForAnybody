@@ -63,7 +63,6 @@ public class DatabaseController {
                 newFilm.setImDbRating(film.imDbRating);
                 newFilm.setImDbRatingCount(film.imDbRatingCount);
                 filmRepo.save(newFilm);
-
             }
         }
 

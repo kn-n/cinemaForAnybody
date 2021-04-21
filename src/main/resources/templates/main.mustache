@@ -23,6 +23,12 @@
             height: 100%;
             margin-right: 10px;
         }
+        .like{
+            display: flex;
+            justify-content: space-between;
+            height: 50%;
+            margin-right: 10px;
+        }
         .d{
             display: flex;
             justify-content: space-between;
@@ -51,13 +57,21 @@
     {{#films}}
         <div class="film">
             <div class="numimg">
-                {{rank}}
+                <div>{{rank}}</div>
                 <img src="{{image}}" width="100" height="150">
             </div>
             <div class="d">
-                <div>{{title}}</div>
+                <div class="like">
+                    <div style="font-weight: bold">{{title}}</div>
+                    <form method="post" action="addFilm">
+                        <button type="submit" name="addFilm" value="{{stringId}}">Добавить в избранное</button>
+                    </form>
+                </div>
+                <br>
                 <div>{{year}}</div>
+                <br>
                 <div>{{crew}}</div>
+                <br>
                 <div>{{imDbRating}}</div>
             </div>
         </div>
