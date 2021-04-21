@@ -71,8 +71,8 @@ public class MainController {
 
         add.add(addFilm);
 
+        System.out.println("aye");
 
         return "main";
     }
-
 }
