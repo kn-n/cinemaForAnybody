@@ -11,6 +11,8 @@ import org.apache.juli.logging.Log;
 import org.glassfish.hk2.utilities.reflection.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,14 +72,25 @@ public class MainController {
     }
 
     @PostMapping("addFilm")
-    public String addFilm(@RequestParam String filmID, User user){
+    public String addFilm(@RequestParam String filmID){
 
-        ArrayList<String> listFavorFilms = new ArrayList<>();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-//        listFavorFilms.add(filmID);
-//        user.setFavoriteFilms(listFavorFilms);
-//        userRepo.save(user);
+        User user = userRepo.findByUsername(auth.getName());
+
+        if (user.getFavoriteFilms() == null)
+        {
+            ArrayList<String> film = new ArrayList<>();
+            film.add(filmID);
+            user.setFavoriteFilms(film);
+        }else {
+            user.getFavoriteFilms().add(filmID);
+        }
+
+        userRepo.save(user);
+        System.out.println(user.getUsername());
         System.out.println(filmID);
+        System.out.println(user.getFavoriteFilms());
 
         return "redirect:/main";
     }
