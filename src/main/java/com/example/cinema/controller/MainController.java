@@ -93,7 +93,7 @@ public class MainController {
         System.out.println(user.getUsername());
         System.out.println(filmID);
         System.out.println(user.getFavoriteFilms());
-//fds
+//fdss
         return "redirect:/main";
     }
 
