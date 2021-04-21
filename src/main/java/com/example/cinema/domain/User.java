@@ -1,6 +1,7 @@
 package com.example.cinema.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Set;
 
 @Entity
@@ -12,6 +13,7 @@ public class User {
     private String username;
     private String password;
     private boolean active;
+    private ArrayList<String> favoriteFilms;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -56,5 +58,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public ArrayList<String> getFavoriteFilms() {
+        return favoriteFilms;
+    }
+
+    public void setFavoriteFilms(ArrayList<String> favoriteFilms) {
+        this.favoriteFilms = favoriteFilms;
     }
 }

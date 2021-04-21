@@ -3,7 +3,9 @@ package com.example.cinema.controller;
 import com.example.cinema.domain.AllFilms;
 import com.example.cinema.domain.Item;
 import com.example.cinema.domain.Film;
+import com.example.cinema.domain.User;
 import com.example.cinema.repos.FilmRepo;
+import com.example.cinema.repos.UserRepo;
 import com.google.gson.Gson;
 import org.apache.juli.logging.Log;
 import org.glassfish.hk2.utilities.reflection.Logger;
@@ -38,6 +40,9 @@ public class MainController {
     @Autowired
     private FilmRepo filmRepo;
 
+    @Autowired
+    private UserRepo userRepo;
+
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
@@ -65,14 +70,15 @@ public class MainController {
     }
 
     @PostMapping("addFilm")
-    public String addFilm(@RequestParam String addFilm){
+    public String addFilm(@RequestParam String filmID, User user){
 
-        ArrayList<String> add = new ArrayList<>();
+        ArrayList<String> listFavorFilms = new ArrayList<>();
 
-        add.add(addFilm);
+//        listFavorFilms.add(filmID);
+//        user.setFavoriteFilms(listFavorFilms);
+//        userRepo.save(user);
+        System.out.println(filmID);
 
-        System.out.println("aye");
-
-        return "main";
+        return "redirect:/main";
     }
 }

@@ -65,7 +65,8 @@
                 <div class="like">
                     <div style="font-weight: bold">{{title}}</div>
                     <form method="post" action="addFilm">
-                        <button type="submit" name="addFilm" value="{{stringId}}">Добавить в избранное</button>
+                        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+                        <button type="submit" name="filmID" value="{{stringId}}">Добавить в избранное</button>
                     </form>
                 </div>
                 <br>
