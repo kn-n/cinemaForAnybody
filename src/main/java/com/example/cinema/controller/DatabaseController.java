@@ -29,7 +29,7 @@ public class DatabaseController {
     @GetMapping("/main")
     public String main(Map<String, Object> model) throws IOException {
 
-        String url = "https://imdb-api.com/en/API/Top250Movies/k_a3bczbcf";
+        String url = "https://imdb-api.com/en/API/Top250Movies/k_66r6c4dn";
 
         URL obj = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) obj.openConnection();

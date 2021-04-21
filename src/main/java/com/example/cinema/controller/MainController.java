@@ -1,9 +1,7 @@
 package com.example.cinema.controller;
 
-import com.example.cinema.domain.AllFilms;
-import com.example.cinema.domain.Item;
-import com.example.cinema.domain.Film;
-import com.example.cinema.domain.User;
+import com.example.cinema.domain.*;
+import com.example.cinema.repos.CommentRepo;
 import com.example.cinema.repos.FilmRepo;
 import com.example.cinema.repos.UserRepo;
 import com.google.gson.Gson;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.filter.OncePerRequestFilter;
+import java.util.Date;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -44,6 +43,9 @@ public class MainController {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private CommentRepo commentRepo;
 
 
     @GetMapping("/")
@@ -93,5 +95,36 @@ public class MainController {
         System.out.println(user.getFavoriteFilms());
 
         return "redirect:/main";
+    }
+
+    @PostMapping("toMovie")
+    public String toMovie(@RequestParam String filmID, Map<String, Object> model){
+
+        AllFilms film = filmRepo.findByStringId(filmID);
+        Comments comments = commentRepo.findByFilmId(filmID);
+        model.put("films", film);
+        if(comments!=null)
+            model.put("comments", comments);
+        return "film";
+    }
+
+    @PostMapping("sendComment")
+    public String sendComment(@RequestParam String comment,@RequestParam String filmID, Map<String, Object> model){
+
+        System.out.println("suka");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Comments newComment = new Comments();
+        newComment.setIdFilm(filmID);
+        newComment.setUsername(auth.getName());
+        newComment.setData(new Date().toString());
+        newComment.setText(comment);
+        commentRepo.save(newComment);
+
+        AllFilms film = filmRepo.findByStringId(filmID);
+        Comments comments = commentRepo.findByFilmId(filmID);
+        model.put("films", film);
+        if(comments!=null)
+            model.put("comments", comments);
+        return "redirect:/film";
     }
 }

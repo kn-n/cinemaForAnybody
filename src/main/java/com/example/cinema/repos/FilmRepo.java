@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface FilmRepo extends JpaRepository<AllFilms, Long> {
     AllFilms findById(Integer id);
+    AllFilms findByStringId(String id);
 }

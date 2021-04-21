@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{title}}</title>
 </head>
-<>
+<body>
 <div class="films">
     {{#films}}
+        <title>{{title}}</title>
         <div class="film">
             <div class="numimg">
                 <div>{{rank}}</div>
@@ -25,14 +25,21 @@
     {{/films}}
 </div>
 <div class="commAndRate">
-    <form method="post" action="comment">
+    {{#films}}
+    <form method="post" action="sendComment">
         <input type="text" name="comment">
+        <input type="hidden" name="filmID" value="{{stringId}}">
         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <button type="submit">Отправить</button>
     </form>
+    {{/films}}
 </div>
 <div class="kirgizz">
-    {{#Comment}}{{/Comment}}
+    {{#comments}}
+        {{username}}
+        {{text}}
+        {{data}}
+    {{/comments}}
 </div>
 </body>
 </html>

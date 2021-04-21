@@ -37,6 +37,7 @@
         }
 
 
+
     </style>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
@@ -63,7 +64,11 @@
             </div>
             <div class="d">
                 <div class="like">
-                    <div style="font-weight: bold">{{title}}</div>
+                    <form method="post" action="toMovie">
+                        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+                        <input type="hidden" name="filmID" value="{{stringId}}">
+                        <button type="submit" style="font-weight: bold">{{title}}</button>
+                    </form>
                     <form method="post" action="addFilm">
                         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
                         <button type="submit" name="filmID" value="{{stringId}}">Добавить в избранное</button>
