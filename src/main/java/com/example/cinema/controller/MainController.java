@@ -93,7 +93,7 @@ public class MainController {
         System.out.println(user.getUsername());
         System.out.println(filmID);
         System.out.println(user.getFavoriteFilms());
-//fdsss
+
         return "redirect:/main";
     }
 
@@ -101,18 +101,21 @@ public class MainController {
     public String toMovie(@RequestParam String filmID, Map<String, Object> model){
 
         AllFilms film = filmRepo.findByStringId(filmID);
-        Comments comments = commentRepo.findByFilmId(filmID);
+        ArrayList<Comments> comments = commentRepo.findAllByFilmId(filmID);
+
         model.put("films", film);
+
         if(comments!=null)
             model.put("comments", comments);
+
         return "film";
     }
 
     @PostMapping("sendComment")
     public String sendComment(@RequestParam String comment,@RequestParam String filmID, Map<String, Object> model){
 
-        System.out.println("suka");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         Comments newComment = new Comments();
         newComment.setIdFilm(filmID);
         newComment.setUsername(auth.getName());
@@ -121,10 +124,13 @@ public class MainController {
         commentRepo.save(newComment);
 
         AllFilms film = filmRepo.findByStringId(filmID);
-        Comments comments = commentRepo.findByFilmId(filmID);
+        ArrayList<Comments> comments = commentRepo.findAllByFilmId(filmID);
+
         model.put("films", film);
+
         if(comments!=null)
             model.put("comments", comments);
-        return "redirect:/film";
+
+        return "film";
     }
 }
