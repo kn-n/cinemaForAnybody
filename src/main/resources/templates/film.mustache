@@ -61,11 +61,15 @@
                 <div>{{crew}}</div>
                 <br>
                 <div>{{imDbRating}}</div>
+                <br>
+                <div>{{averageRating}}</div>
             </div>
         </div>
     {{/films}}
 </div>
-
+{{#films}}
+<form method="post" action="star">
+    <input type="hidden" name="filmID" value="{{stringId}}">
 <div class="rating-area">
     <input type="radio" id="star-10" name="rating" value="10">
     <label for="star-10" title="Оценка «10»"></label>
@@ -87,7 +91,11 @@
     <label for="star-2" title="Оценка «2»"></label>
     <input type="radio" id="star-1" name="rating" value="1">
     <label for="star-1" title="Оценка «1»"></label>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <button type="submit">Оценка</button>
 </div>
+</form>
+{{/films}}
 
 <div class="commAndRate">
     {{#films}}

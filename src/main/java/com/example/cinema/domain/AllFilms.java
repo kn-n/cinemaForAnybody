@@ -19,12 +19,14 @@ public class AllFilms {
     public String crew;
     public String imDbRating;
     public String imDbRatingCount;
+    public String averageRating;
+    public String voters;
 
     public AllFilms() {
 
     }
 
-    public AllFilms(Integer id, String stringId, String rank, String title, String fullTitle, String year, String image, String crew, String imDbRating, String imDbRatingCount) {
+    public AllFilms(Integer id, String stringId, String rank, String title, String fullTitle, String year, String image, String crew, String imDbRating, String imDbRatingCount, String averageRating, String voters) {
         this.id = id;
         this.stringId = stringId;
         this.rank = rank;
@@ -35,6 +37,24 @@ public class AllFilms {
         this.crew = crew;
         this.imDbRating = imDbRating;
         this.imDbRatingCount = imDbRatingCount;
+        this.averageRating = averageRating;
+        this.voters = voters;
+    }
+
+    public String getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(String averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public String getVoters() {
+        return voters;
+    }
+
+    public void setVoters(String voters) {
+        this.voters = voters;
     }
 
     public Integer getId() {

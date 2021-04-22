@@ -62,6 +62,8 @@ public class DatabaseController {
                 newFilm.setCrew(film.crew);
                 newFilm.setImDbRating(film.imDbRating);
                 newFilm.setImDbRatingCount(film.imDbRatingCount);
+                newFilm.setAverageRating("");
+                newFilm.setVoters("");
                 filmRepo.save(newFilm);
             }
         }
