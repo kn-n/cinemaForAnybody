@@ -91,9 +91,6 @@ public class MainController {
         }
 
         userRepo.save(user);
-        System.out.println(user.getUsername());
-        System.out.println(filmID);
-        System.out.println(user.getFavoriteFilms());
 
         return "redirect:/main";
     }

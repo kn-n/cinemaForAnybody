@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Main</title>
+    <meta charset="UTF-8">
     <style type="text/css">
         .films{
             display: flex;
@@ -36,29 +36,20 @@
             width: 100%;
         }
     </style>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Account</title>
 </head>
 <body>
-<form action="/logout" method="post">
-    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
-    <input type="submit" value="Sign Out"/>
-</form>
 <br>
-<a href="/account">Личный кабинет</a>
+<a href="/main">На главную страницу</a>
 <br>
-<div>Найти фильм в топе 250</div>
+<div>Username: {{username}}</div>
 <br>
-<form method="post" action="filter">
-    <input type="text" name="filter">
-    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
-    <button type="submit">Найти</button>
-</form>
+<div>Favorite films</div>
 <br>
 <div class="films">
     {{#films}}
         <div class="film">
             <div class="numimg">
-                <div>{{rank}}</div>
                 <img src="{{image}}" width="100" height="150">
             </div>
             <div class="d">
@@ -67,10 +58,6 @@
                         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
                         <input type="hidden" name="filmID" value="{{stringId}}">
                         <button type="submit" style="font-weight: bold">{{title}}</button>
-                    </form>
-                    <form method="post" action="addFilm">
-                        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
-                        <button type="submit" name="filmID" value="{{stringId}}">Добавить в избранное</button>
                     </form>
                 </div>
                 <br>

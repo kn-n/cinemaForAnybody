@@ -41,6 +41,10 @@ public class AllFilms {
         this.voters = voters;
     }
 
+    public int compareTo(AllFilms film) {
+        return Integer.parseInt(this.getRank()) - Integer.parseInt(film.getRank());
+    }
+
     public String getAverageRating() {
         return averageRating;
     }
